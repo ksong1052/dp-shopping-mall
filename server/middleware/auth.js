@@ -10,18 +10,17 @@ let auth = (req, res, next) => {
     // Token을 복호화해서 user를 찾는다.
     User.findByToken(token, (err, user) => {
         if(err) throw err;
-        if(!user) return res.json({ isAuth: false, error: true });
+        if(!user) 
+            return res.json({ 
+                isAuth: false, 
+                error: true 
+            });
 
         // Middleware인  여기에서 받아 온 user 정보를 넘겨 주기 위한 것
         req.token = token;
         req.user = user; 
         next();
     });
-
-    // user가 있으면 Okay
-
-    // user가 없으면 No
-
 }
 
 module.exports = { auth };
